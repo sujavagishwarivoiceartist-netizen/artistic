@@ -14,11 +14,42 @@ export default function AudioPlayer({ track, onClose }: AudioPlayerProps) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const [duration, setDuration] = useState(0);
+  const [volume, setVolume] = useState(100); // Start at 100x volume
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const audioContextRef = useRef<AudioContext | null>(null);
+  const gainNodeRef = useRef<GainNode | null>(null);
+  const sourceRef = useRef<MediaElementAudioSourceNode | null>(null);
+
+  useEffect(() => {
+    // Initialize Web Audio API on first mount
+    if (audioRef.current && !audioContextRef.current) {
+      const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
+      const ctx = new AudioCtx();
+      audioContextRef.current = ctx;
+      
+      const gainNode = ctx.createGain();
+      gainNodeRef.current = gainNode;
+      gainNode.gain.value = volume;
+      
+      // We must only call createMediaElementSource once per audio element
+      sourceRef.current = ctx.createMediaElementSource(audioRef.current);
+      sourceRef.current.connect(gainNode);
+      gainNode.connect(ctx.destination);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (gainNodeRef.current) {
+      gainNodeRef.current.gain.value = volume;
+    }
+  }, [volume]);
 
   useEffect(() => {
     if (track) {
       if (audioRef.current) {
+        if (audioContextRef.current && audioContextRef.current.state === 'suspended') {
+          audioContextRef.current.resume().catch(e => console.log(e));
+        }
         audioRef.current.src = track.url;
         audioRef.current.play().catch(err => console.error("Audio playback failed:", err));
         setIsPlaying(true);
@@ -33,6 +64,11 @@ export default function AudioPlayer({ track, onClose }: AudioPlayerProps) {
 
   const togglePlay = () => {
     if (audioRef.current) {
+      // Browsers often suspend AudioContext until user interaction
+      if (audioContextRef.current && audioContextRef.current.state === 'suspended') {
+        audioContextRef.current.resume();
+      }
+
       if (isPlaying) {
         audioRef.current.pause();
       } else {
@@ -76,6 +112,7 @@ export default function AudioPlayer({ track, onClose }: AudioPlayerProps) {
     <div className={`modal-overlay ${track ? 'open' : ''}`}>
       <audio
         ref={audioRef}
+        crossOrigin="anonymous" /* required for Web Audio API with external sources */
         onTimeUpdate={handleTimeUpdate}
         onLoadedMetadata={handleLoadedMetadata}
         onEnded={handleEnded}
@@ -112,8 +149,24 @@ export default function AudioPlayer({ track, onClose }: AudioPlayerProps) {
             <div className="audio-progress-fill" style={{ width: `${progress}%` }} />
           </div>
           
-          <div style={{ color: 'var(--gold)', fontSize: '0.8rem', opacity: 0.6, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <Volume2 size={16} />
+          <div className="volume-control" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', width: '100px' }}>
+            <Volume2 size={16} style={{ color: 'var(--gold)', opacity: 0.8 }} />
+            <input 
+              title="Volume"
+              type="range" 
+              min="0" 
+              max="500" 
+              step="5" 
+              value={volume} 
+              onChange={(e) => setVolume(parseFloat(e.target.value))}
+              style={{
+                width: '100%',
+                height: '4px',
+                accentColor: 'var(--gold)',
+                cursor: 'pointer',
+                opacity: 0.8
+              }}
+            />
           </div>
         </div>
       </div>
