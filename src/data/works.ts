@@ -67,17 +67,6 @@ export const works: Work[] = [
 
   // English Works
   {
-    id: 'e1',
-    title: 'Shadows of the Past',
-    description: 'A family saga of the fictional Menon family with a non-linear narrative, blending fictional storytelling with real-life experiences.',
-    filename: 'Audiobbok.eng.mp3',
-    language: 'English',
-    audio: '',
-    year: '2026',
-    featured: true,
-    category: 'Audiobooks',
-  },
-  {
     id: 'e2',
     title: 'The Voice Within',
     description: 'A weekly English podcast discussing mental health and personal growth.',

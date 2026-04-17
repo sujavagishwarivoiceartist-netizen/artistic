@@ -209,7 +209,7 @@ function BookCard({ book }: { book: ReturnType<typeof works.filter>[0] }) {
       {/* Book Info */}
       <div style={{ padding: '1.5rem' }}>
         <div style={{ fontSize: '0.65rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--gold)', marginBottom: '0.5rem' }}>
-          {book.language} · {book.year}
+          {book.language}
         </div>
         <h3 style={{ fontSize: '1.1rem', fontFamily: 'var(--fd)', color: 'var(--cream)', marginBottom: '0.6rem', lineHeight: 1.3 }}>
           {book.title}

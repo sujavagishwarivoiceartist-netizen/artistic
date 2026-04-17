@@ -156,10 +156,6 @@ export default function AudiobookDetail({ setTrack }: { setTrack: (track: any) =
           
           <div className="audiobook-meta">
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
-              <Calendar size={18} />
-              <span>{work.year} PRODUCTION</span>
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
               <Clock size={18} />
               <span>RECORDING ACTIVE</span>
             </div>

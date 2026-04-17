@@ -38,7 +38,7 @@ export default function LanguagePage({ language, description, setTrack }: Langua
             <div 
               key={work.id} 
               className="file-item"
-              onClick={() => setTrack({ url: work.audio, title: work.filename, subtitle: `${language} Archive • ${work.year}` })}
+              onClick={() => setTrack({ url: work.audio, title: work.filename, subtitle: `${language} Archive` })}
               style={{ 
                 display: 'flex', 
                 alignItems: 'center', 
@@ -68,7 +68,7 @@ export default function LanguagePage({ language, description, setTrack }: Langua
                   {work.filename}
                 </div>
                 <div style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.4)', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
-                   {work.year} Archive
+                   {language} Archive
                 </div>
               </div>
 

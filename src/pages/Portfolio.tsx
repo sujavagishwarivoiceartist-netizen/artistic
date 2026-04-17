@@ -104,7 +104,7 @@ export default function Portfolio({ setTrack }: { setTrack: (track: any) => void
                   {work.filename}
                 </div>
                 <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.4)', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
-                  {work.category} &bull; {work.language} &bull; {work.year}
+                  {work.category} &bull; {work.language}
                 </div>
               </div>
 
