@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { works } from '../data/works';
-import { Calendar, Clock, ArrowLeft, Play, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Clock, ArrowLeft, Play, ChevronLeft, ChevronRight } from 'lucide-react';
 
 export default function AudiobookDetail({ setTrack }: { setTrack: (track: any) => void }) {
   const { id } = useParams();
