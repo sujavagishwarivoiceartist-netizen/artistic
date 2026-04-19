@@ -10,7 +10,7 @@ interface LanguagePageProps {
 }
 
 export default function LanguagePage({ language, description, setTrack }: LanguagePageProps) {
-  const works = getWorksByLanguage(language as any);
+  const works = getWorksByLanguage(language as any).filter(w => w.category !== 'Audiobooks');
 
   return (
     <div className="min-h-screen pt-32 pb-20">

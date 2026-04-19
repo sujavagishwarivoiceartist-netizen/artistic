@@ -121,7 +121,7 @@ nav .logo-tagline{font-size:.65rem!important;font-weight:300!important;color:var
 .mob-link:hover{color:var(--gold)!important;background:rgba(200,150,74,0.04)}
 
 /* ── HERO ── */
-#hero{position:relative;min-height:100vh;display:flex;align-items:flex-start;padding:180px 5% 100px !important;overflow:hidden}
+#hero{position:relative;min-height:100vh;display:flex;align-items:center;padding:clamp(100px, 14vh, 180px) 5% clamp(60px, 10vh, 100px) !important;overflow:hidden}
 .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 80% at 70% 50%,rgba(26,92,87,.35) 0%,transparent 70%),radial-gradient(ellipse 40% 40% at 20% 80%,rgba(200,150,74,.12) 0%,transparent 60%),linear-gradient(135deg,#0a1f1e 0%,#0d3b38 50%,#0a1f1e 100%)}
 .hero-bg::after{content:'';position:absolute;right:10%;top:10%;width:600px;height:800px;background:url("https://www.svgrepo.com/show/532393/microphone-alt.svg") center/contain no-repeat;opacity:0.04;pointer-events:none;filter:invert(1) brightness(0.5)}
 .hero-particles{position:absolute;inset:0;overflow:hidden}
@@ -130,7 +130,7 @@ nav .logo-tagline{font-size:.65rem!important;font-weight:300!important;color:var
 .staff-note{position:absolute;color:rgba(200,150,74,.18);animation:staff-float linear infinite;user-select:none;pointer-events:none}
 @keyframes staff-float{0%{transform:translateY(0) rotate(-10deg);opacity:0}8%{opacity:1}92%{opacity:.6}100%{transform:translateY(-100vh) rotate(15deg);opacity:0}}
 .clef-wm{position:absolute;font-size:18rem;color:rgba(200,150,74,.04);font-family:serif;pointer-events:none;user-select:none;line-height:1}
-.hero-content{position:relative;z-index:2;max-width:none;width:100%;margin-top:auto;margin-bottom:auto}
+.hero-content{position:relative;z-index:2;max-width:none;width:100%}
 .hero-badge{display:inline-flex;align-items:center;gap:.8rem;background:rgba(200,150,74,.1);border-radius:50px;padding:.5rem 1.5rem .5rem .8rem;margin-bottom:2.5rem;opacity:0;animation:slideUp .8s .3s forwards}
 .badge-wave{display:flex;align-items:center;gap:2px;height:120%}
 .bw-line{width:2px;background:var(--gold);border-radius:1px}
@@ -223,7 +223,7 @@ section{position:relative;z-index:2;padding:4rem 5%}
 .section-title em{color:var(--gold);font-style:italic}
 
 .page-container {
-  padding-top: clamp(7rem, 20vw, 12rem);
+  padding-top: clamp(6rem, 12vh, 10rem);
   padding-bottom: 3rem;
   min-height: 100vh;
 }
@@ -454,7 +454,25 @@ footer{background:linear-gradient(to bottom, #061312, #040c0b); position:relativ
 #staffCanvas{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:9993;opacity:.22}
 
 /* responsive */
+
+/* Laptop / short-height screens */
+@media(max-height:800px){
+  #hero{padding:clamp(80px,10vh,140px) 5% clamp(40px,6vh,80px) !important}
+  .hero-title{font-size:clamp(2.5rem,6vw,7rem)!important}
+  .hero-desc{margin-top:1.5rem!important;font-size:1rem!important}
+  .hero-actions{margin-top:2rem!important}
+  .hero-badge{margin-bottom:1.5rem!important}
+  .page-container{padding-top:clamp(5rem,10vh,8rem)!important}
+}
+
+@media(max-width:1024px){
+  #hero{padding:clamp(90px,12vh,160px) 5% clamp(50px,8vh,90px) !important}
+  .hero-title{font-size:clamp(2.5rem,7vw,6rem)!important}
+  .soundwave-container{width:150px!important;height:150px!important}
+}
+
 @media(max-width:900px){
+  #hero{flex-direction:column;align-items:flex-start}
   #about{grid-template-columns:1fr;gap:3rem}
   .lang-grid{grid-template-columns:1fr}
   .works-grid{grid-template-columns:repeat(2,1fr)}
@@ -601,7 +619,7 @@ footer{background:linear-gradient(to bottom, #061312, #040c0b); position:relativ
 
 /* ── AUDIOBOOK DETAIL ── */
 .audiobook-detail-page {
-  padding-top: 120px;
+  padding-top: clamp(80px, 10vh, 120px);
   min-height: 100vh;
 }
 
@@ -726,7 +744,12 @@ footer{background:linear-gradient(to bottom, #061312, #040c0b); position:relativ
 
 /* ── MOBILE TWEAKS ── */
 @media (max-width: 768px) {
-  .hero-title { line-height: 1.0 !important; margin-bottom: 2rem !important; }
+  #hero{padding:clamp(80px,10vh,120px) 5% clamp(40px,6vh,60px) !important;min-height:auto!important}
+  .hero-title { font-size: clamp(2.2rem, 10vw, 4rem) !important; line-height: 1.0 !important; margin-bottom: 1.5rem !important; }
+  .hero-desc{font-size:0.95rem!important;margin-top:1rem!important}
+  .hero-actions{margin-top:1.5rem!important;gap:1rem!important}
+  .hero-badge{margin-bottom:1rem!important;padding:0.4rem 1rem 0.4rem 0.6rem!important}
+  .page-container{padding-top:clamp(5rem,10vh,7rem)!important}
   .audiobook-hero { padding: 4rem 5% !important; gap: 3rem !important; align-items: flex-start !important; }
   .footer-cta { padding: 4rem 5% !important; }
   .whatsapp-floating { width: 50px !important; height: 50px !important; bottom: 20px !important; right: 20px !important; }
